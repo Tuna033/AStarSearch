@@ -35,17 +35,17 @@ void RoutePlanner::AddNeighbors(RouteModel::Node* current_node) {
 		neighbor->g_value = current_node->g_value + current_node->distance(*neighbor);
 		neighbor->h_value = CalculateHValue(neighbor);
 
-		open_list.emplace_back(neighbor);
+		open_list.push_back(neighbor);
 		neighbor->visited = true;
 	}
 }
 
 // TODO: do I need to declare method in h-file?
 // helper method for NextNode()
-bool Compare (RouteModel::Node* node1, RouteModel::Node* node2) {
-    float f1 = node1->g_value + node1->h_value;
-    float f2 = node2->g_value + node2->h_value;
-    return f1 < f2;
+bool SortCompare (RouteModel::Node* node1, RouteModel::Node* node2) {
+    float f_value1 = node1->g_value + node1->h_value;
+    float f_value2 = node2->g_value + node2->h_value;
+    return f_value1 < f_value2;
 }
 
 // NextNode method to sort the open list and return the next node.
@@ -55,11 +55,12 @@ bool Compare (RouteModel::Node* node1, RouteModel::Node* node2) {
 // Return the pointer.
 
 RouteModel::Node *RoutePlanner::NextNode() {
-    std::sort((this->open_list).begin(), (this->open_list).end(), Compare);
-    RouteModel::Node * lowest_sum = (this->open_list).front();
+    std::sort((this->open_list).begin(), (this->open_list).end(), SortCompare);
+
+    RouteModel::Node * lowest_sum_node = (this->open_list).front();
     (this->open_list).erase(open_list.begin());
 
-    return lowest_sum;
+    return lowest_sum_node;
 }
 
     
@@ -97,14 +98,14 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
 void RoutePlanner::AStarSearch() {
     RouteModel::Node *current_node = nullptr;
     RoutePlanner::start_node->visited = true;
-    RoutePlanner::open_list.emplace_back(RoutePlanner::start_node);
+    RoutePlanner::open_list.push_back(RoutePlanner::start_node);
     while (!RoutePlanner::open_list.empty()) {
         current_node = RoutePlanner::NextNode();
         if (current_node->distance(*RoutePlanner::end_node) == 0) {
             RoutePlanner::m_Model.path = RoutePlanner::ConstructFinalPath(RoutePlanner::end_node);
             return;
         } 
-            RoutePlanner::AddNeighbors(current_node);
+        RoutePlanner::AddNeighbors(current_node);
     }
 
 

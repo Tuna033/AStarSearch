@@ -19,7 +19,8 @@ class RoutePlanner {
     float CalculateHValue(RouteModel::Node const *node);
     std::vector<RouteModel::Node> ConstructFinalPath(RouteModel::Node *);
     RouteModel::Node *NextNode();
-   static bool compare_helper (RouteModel::Node start, RouteModel::Node end);
+    // bool Compare (RouteModel::Node* node1, RouteModel::Node* node2);
+
 
   private:
     // Add private variables or methods declarations here.
@@ -30,7 +31,7 @@ class RoutePlanner {
     float distance = 0.0f;
     RouteModel &m_Model;
 
-
+ 
 };
 
 #endif

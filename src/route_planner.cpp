@@ -20,6 +20,7 @@ RoutePlanner::RoutePlanner(RouteModel &model, float start_x, float start_y, floa
 // Node objects have a distance method to determine the distance to another node.
 float RoutePlanner::CalculateHValue(RouteModel::Node const *node) {
     float h_value = node->distance(*end_node);
+    return h_value;
 }
 
 
@@ -55,8 +56,13 @@ bool SortCompare (RouteModel::Node* node1, RouteModel::Node* node2) {
 // Return the pointer.
 
 RouteModel::Node *RoutePlanner::NextNode() {
-    std::sort((this->open_list).begin(), (this->open_list).end(), SortCompare);
-
+    // sort with helper method SortCompare
+    //std::sort((this->open_list).begin(), (this->open_list).end(), SortCompare);
+    // sort with lambda function
+    std::sort(open_list.begin(), open_list.end(), 
+    [](const RouteModel::Node *a, const RouteModel::Node* b){
+        return (a->h_value+a->g_value) < (b->h_value+b->g_value);
+    });
     RouteModel::Node * lowest_sum_node = (this->open_list).front();
     (this->open_list).erase(open_list.begin());
 
@@ -101,9 +107,10 @@ void RoutePlanner::AStarSearch() {
     RoutePlanner::open_list.push_back(RoutePlanner::start_node);
     while (!RoutePlanner::open_list.empty()) {
         current_node = RoutePlanner::NextNode();
-        if (current_node->distance(*RoutePlanner::end_node) == 0) {
+        //if (current_node->distance(*RoutePlanner::end_node) == 0) {
+        if (current_node == end_node) {  
             RoutePlanner::m_Model.path = RoutePlanner::ConstructFinalPath(RoutePlanner::end_node);
-            return;
+            break;
         } 
         RoutePlanner::AddNeighbors(current_node);
     }

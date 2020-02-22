@@ -38,7 +38,7 @@ git clone git@github.com:udacity/CppND-Route-Planning-Project.git --recurse-subm
 ## Compiling and Running
 
 ### Compiling
-Check out [my detailed setup guide](https://knowledge.udacity.com/questions/42416), which also has a setup for Linux dependencies under the "Test" rubric. 
+Check out [this setup guide](https://knowledge.udacity.com/questions/42416), which also has a setup for Linux dependencies under the "Test" rubric. 
 
 You need to install io2d and its dependencies first. Under Windows, you can use [vcpkg](https://github.com/microsoft/vcpkg) to do that easily:
 

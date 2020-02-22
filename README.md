@@ -1,4 +1,4 @@
-# AStarSearch - a route planner
+# AStarSearch - a route planner on OpenStreetMap
 
 This repo contains an implementation of the A* route planner on OpenStreetMap in C++; similiar to 
 Google Maps route planner.

@@ -1,6 +1,11 @@
 # Route Planning Project
 
-This repo contains the starter code for the Route Planning project.
+This repo contains an implementation of the A* route planner on OpenStreetMap in C++; similiar to 
+Google Maps route planner.
+
+The A* algorithm calculates and draws the shortest path from point a to b. The user can specify two coordinate pairs (x, y) fro starting an d end point (between 0 and 100). The map is drawn by the io2d library.
+
+The distance between the two points is returned in meters.
 
 <img src="map.png" width="600" height="450" />
 
@@ -33,15 +38,26 @@ git clone git@github.com:udacity/CppND-Route-Planning-Project.git --recurse-subm
 ## Compiling and Running
 
 ### Compiling
+Check out [my detailed setup guide](https://knowledge.udacity.com/questions/42416), which also has a setup for Linux dependencies under the "Test" rubric. 
+
+You need to install io2d and its dependencies first. Under Windows, you can use [vcpkg](https://github.com/microsoft/vcpkg) to do that easily:
+
+```
+vcpkg install io2d:x64-windows
+```
+
 To compile the project, first, create a `build` directory and change to that directory:
+
 ```
 mkdir build && cd build
 ```
-From within the `build` directory, then run `cmake` and `make` as follows:
+From within the `build` directory, then run `cmake` and `make` as follows and change the path to your vcpkg directory:
 ```
-cmake ..
+cmake -DCMAKE_TOOLCHAIN_FILE=vcpkg_root/scripts/buildsystems/vcpkg.cmake -DCMAKE_GENERATOR_PLATFORM=x64 ..
 make
 ```
+Now the CppND-Route-Planning-Project executable should have been created in the /bin folder.
+
 ### Running
 The executable will be placed in the `build` directory. From within `build`, you can run the project as follows:
 ```

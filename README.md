@@ -1,4 +1,4 @@
-# Route Planning Project
+# AStarSearch - a route planner
 
 This repo contains an implementation of the A* route planner on OpenStreetMap in C++; similiar to 
 Google Maps route planner.
@@ -63,5 +63,3 @@ The testing executable is also placed in the `build` directory. From within `bui
 ```
 ./test
 ```
-
-# AStarSearch
